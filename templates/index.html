@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AutoMate Hub - Automatically generate invoices and send emails from CSV uploads. Secure, fast, and professional.">
+    <title>AutoMate Hub | Automatic Invoice Generation</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-bolt"></i> AutoMate Hub
+        </div>
+        <div class="nav-links">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <!-- 'Get Started' Button from screenshot -->
+        <a href="#upload-section" class="btn-primary nav-btn">
+            <i class="fas fa-file-invoice"></i> Get Started
+        </a>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-chip">
+                <i class="fas fa-bolt"></i> No signup required
+            </div>
+            <h1>Automatic Invoice <br>Generation & <span class="highlight">Email Automation</span></h1>
+            <p>Upload a CSV file. Generate professional invoices. Send emails automatically.<br>Simple, fast, and
+                completely free.</p>
+            <div class="cta-group">
+                <!-- Orange CTA -->
+                <button id="scroll-to-upload" class="btn-cta">
+                    Upload CSV & Generate <i class="fas fa-arrow-right"></i>
+                </button>
+                <a href="/static/sample.csv" class="btn-secondary" download>
+                    <i class="fas fa-file-csv"></i> Download Sample CSV
+                </a>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="problem-section">
+            <div class="problem-content">
+                <h2>Stop Manual Invoicing Madness</h2>
+                <div class="problem-grid">
+                    <div class="problem-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>Time Consuming</h3>
+                        <p>Manually creating PDFs for every client takes hours every month.</p>
+                    </div>
+                    <div class="problem-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error Prone</h3>
+                        <p>Copy-pasting data leads to mistakes and unprofessional invoices.</p>
+                    </div>
+                    <div class="problem-item">
+                        <i class="fas fa-envelope-open"></i>
+                        <h3>Tedious Sending</h3>
+                        <p>Emailing each client individually is repetitive and boring.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="how-it-works">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>From spreadsheet to sent emails in 3 simple steps</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Upload CSV</h3>
+                    <p>Format your client data using our simple template.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Generate</h3>
+                    <p>We instantly generate professional PDF invoices for each row.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Send</h3>
+                    <p>Invoices are automatically emailed to your clients.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="upload-container">
+            <div class="glass-card">
+                <h2>Invoice Generator</h2>
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p><strong>Click to upload</strong> or drag and drop</p>
+                        <p class="small text-muted">CSV files only (max 5MB)</p>
+                        <input type="file" id="csv-file" accept=".csv" hidden>
+                    </div>
+                </div>
+                <div id="file-info" class="file-info hidden">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-file-csv" style="color: var(--primary-color);"></i>
+                        <span id="filename">filename.csv</span>
+                    </div>
+                    <i class="fas fa-times remove-file" title="Remove file"></i>
+                </div>
+                <button id="generate-btn" class="btn-primary full-width" disabled>
+                    Generate & Send Invoices
+                </button>
+                <div id="loading-indicator" class="hidden" style="text-align: center; margin-top: 1.5rem;">
+                    <div class="spinner"></div>
+                    <p>Processing... <span id="progress-text"></span></p>
+                </div>
+            </div>
+
+            <div id="results-container" class="glass-card hidden">
+                <div class="success-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Success!</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Rows</span>
+                        <span class="stat-value" id="stat-total">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Processed</span>
+                        <span class="stat-value" id="stat-processed">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sent</span>
+                        <span class="stat-value" id="stat-emails">0</span>
+                    </div>
+                </div>
+
+                <div id="download-list" class="download-list hidden">
+                    <h4 style="margin-bottom: 1rem; color: #111827;">Generated Invoices</h4>
+                    <ul id="download-items" class="download-items"></ul>
+                </div>
+
+                <div id="error-list" class="error-list hidden">
+                    <h4>Issues Found:</h4>
+                    <ul id="error-items"></ul>
+                </div>
+                <button id="reset-btn" class="btn-secondary full-width" style="margin-top: 1.5rem;">Process Another
+                    File</button>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section id="features" class="features">
+            <div class="section-header">
+                <h2>Everything You Need</h2>
+                <p>A focused tool that does one thing exceptionally well.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-copy"></i></div>
+                    <div class="feature-content">
+                        <h3>Bulk Invoice Generation</h3>
+                        <p>Process hundreds of invoices from a single CSV upload. No manual work required.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="far fa-envelope"></i></div>
+                    <div class="feature-content">
+                        <h3>Automated Email Delivery</h3>
+                        <p>Each invoice is automatically emailed to the right client with a professional message.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="far fa-file-pdf"></i></div>
+                    <div class="feature-content">
+                        <h3>Professional PDF Invoices</h3>
+                        <p>Clean, consistent invoice design that makes your business look polished.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-user-slash"></i></div>
+                    <div class="feature-content">
+                        <h3>No Signup Required</h3>
+                        <p>Start using immediately. No accounts, no passwords, no friction.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="far fa-trash-alt"></i></div>
+                    <div class="feature-content">
+                        <h3>Data Auto-Deleted</h3>
+                        <p>Your data is processed and deleted automatically. We don't store anything.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="feature-content">
+                        <h3>Lightning Fast</h3>
+                        <p>Generate and send 100+ invoices in under a minute. Built for efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="faq-container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions.</p>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is this really free?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, AutoMate Hub is completely free for individual use cases. We beleive in automating
+                            boring tasks.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is my data stored anywhere?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No. We do not store any of your CSV data. Files are processed temporarily to generate the
+                            PDFs and are then immediately discarded on your local server.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What happens if an email fails to send?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You will see a detailed error report in the results section, specifying which rows failed and
+                            why.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What CSV format is required?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We have a strict template to ensure accuracy. Please download the Sample CSV from the hero
+                            section to see the required columns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <i class="fas fa-bolt"></i> AutoMate Hub
+                </div>
+                <p class="footer-desc">
+                    Automatic invoice generation and email automation for freelancers and small businesses.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <div class="footer-links-col">
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#features">Features</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#upload-section">Upload CSV</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <div class="footer-links-col">
+                    <a href="mailto:hello@automatehub.dev"><i class="far fa-envelope"></i> hello@automatehub.dev</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2025 AutoMate Hub. All rights reserved.
+            </div>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+reportlab
+python-multipart
+aiofiles
+requests
+python-dotenv
+email-validator
+jinja2
