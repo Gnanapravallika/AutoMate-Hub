@@ -4,8 +4,6 @@
 
 AutoMate Hub is a powerful, locally-hosted tool designed for freelancers and small businesses to automate their invoicing workflow. It takes a simple CSV file, generates professional PDF invoices for each client, and automatically emails them instantly.
 
-![Hero Screenshot](https://via.placeholder.com/800x400?text=Upload+Your+App+Screenshot+Here)
-*(Replace the image link above with a screenshot of your Hero section)*
 
 ---
 
@@ -25,12 +23,6 @@ AutoMate Hub is a powerful, locally-hosted tool designed for freelancers and sma
 *   **Data Processing**: Pandas
 *   **Server**: Uvicorn
 
-## 📸 Screenshots
-
-| Upload Interface | Generated Invoices |
-|:---:|:---:|
-| ![Upload UI](https://via.placeholder.com/400x300?text=Upload+UI) | ![Results UI](https://via.placeholder.com/400x300?text=Results+UI) |
-| *Drag & drop CSV upload with validation* | *Downloadable PDFs and status report* |
 
 ## 📦 Installation & Usage
 
