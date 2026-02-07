@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, Request, UploadFile, File, BackgroundTasks
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -6,7 +7,6 @@ from app.services.csv_service import validate_csv
 from app.services.pdf_service import generate_invoice
 from app.services.email_service import send_email
 import os
-import shutil
 
 app = FastAPI(title=settings.PROJECT_NAME)
 

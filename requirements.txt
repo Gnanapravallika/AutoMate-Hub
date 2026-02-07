@@ -8,3 +8,5 @@ requests
 python-dotenv
 email-validator
 jinja2
+pydantic-settings
+pydantic>=2.0.0

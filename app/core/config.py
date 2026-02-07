@@ -1,5 +1,8 @@
 from pydantic_settings import BaseSettings
 
+import os
+import tempfile
+
 class Settings(BaseSettings):
     PROJECT_NAME: str = "AutoMate Hub"
     API_V1_STR: str = "/api/v1"
@@ -14,8 +17,8 @@ class Settings(BaseSettings):
     MAIL_SSL: bool = False
     
     # File Settings
-    UPLOAD_DIR: str = "temp/uploads"
-    INVOICE_DIR: str = "temp/invoices"
+    UPLOAD_DIR: str = os.path.join(tempfile.gettempdir(), "automate_uploads")
+    INVOICE_DIR: str = os.path.join(tempfile.gettempdir(), "automate_invoices")
 
     class Config:
         case_sensitive = True
